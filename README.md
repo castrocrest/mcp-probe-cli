@@ -1,12 +1,13 @@
-# mcp-probe
+# mcp-probe-cli
 
 **MCP server conformance tester — zero external dependencies.**
 
 Catch spec violations before your MCP server ships. `mcp-probe` runs a suite of
 Model Context Protocol conformance checks and tells you exactly what's wrong and why.
 
-```
-pip install mcp-probe
+```bash
+# Install from source (PyPI coming soon)
+pip install git+https://github.com/castrocrest/mcp-probe-cli
 mcp-probe server --transport stdio --command "python my_server.py"
 ```
 
@@ -58,7 +59,7 @@ mcp-probe server --transport stdio --command "python my_server.py" --format json
 # .github/workflows/mcp-conformance.yml
 - name: Run MCP conformance checks
   run: |
-    pip install mcp-probe
+    pip install git+https://github.com/castrocrest/mcp-probe-cli
     mcp-probe server --transport stdio --command "python my_server.py"
 ```
 
