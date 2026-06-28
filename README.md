@@ -2,22 +2,21 @@
 
 **MCP server conformance tester — zero external dependencies.**
 
-Catch spec violations before your MCP server ships. `mcp-probe` runs a suite of
+Catch spec violations before your MCP server ships. `mcp-conform` runs a suite of
 Model Context Protocol conformance checks and tells you exactly what's wrong and why.
 
 ```bash
-# Install from source (PyPI coming soon)
-pip install git+https://github.com/castrocrest/mcp-probe-cli
-mcp-probe server --transport stdio --command "python my_server.py"
+pip install mcp-conform
+mcp-conform server --transport stdio --command "python my_server.py"
 ```
 
 ---
 
-## Why mcp-probe?
+## Why mcp-conform?
 
 The official MCP Inspector accepts invalid JSON Schema that MCP clients (including
 Claude Code) reject — silently, with no useful error messages. You discover the
-problem when a real user reports it. `mcp-probe` catches it before push.
+problem when a real user reports it. `mcp-conform` catches it before push.
 
 **What it checks:**
 
@@ -37,30 +36,30 @@ problem when a real user reports it. `mcp-probe` catches it before push.
 ### stdio transport (most common)
 
 ```bash
-mcp-probe server --transport stdio --command "python my_server.py"
-mcp-probe server --transport stdio --command "node dist/server.js"
-mcp-probe server --transport stdio --command "uv run python -m mypackage.server"
+mcp-conform server --transport stdio --command "python my_server.py"
+mcp-conform server --transport stdio --command "node dist/server.js"
+mcp-conform server --transport stdio --command "uv run python -m mypackage.server"
 ```
 
 ### HTTP transport
 
 ```bash
-mcp-probe server --transport http --url http://localhost:8080
+mcp-conform server --transport http --url http://localhost:8080
 ```
 
 ### CI / GitHub Actions
 
 ```bash
 # Fails with exit code 1 if any check fails
-mcp-probe server --transport stdio --command "python my_server.py" --format json | tee report.json
+mcp-conform server --transport stdio --command "python my_server.py" --format json | tee report.json
 ```
 
 ```yaml
 # .github/workflows/mcp-conformance.yml
 - name: Run MCP conformance checks
   run: |
-    pip install git+https://github.com/castrocrest/mcp-probe-cli
-    mcp-probe server --transport stdio --command "python my_server.py"
+    pip install mcp-conform
+    mcp-conform server --transport stdio --command "python my_server.py"
 ```
 
 ---
@@ -69,7 +68,7 @@ mcp-probe server --transport stdio --command "python my_server.py" --format json
 
 ```
 ════════════════════════════════════════════════════════════
-  mcp-probe report
+  mcp-conform report
   Server : python my_server.py
   Transport: stdio
   Duration : 312 ms
@@ -98,7 +97,7 @@ mcp-probe server --transport stdio --command "python my_server.py" --format json
 
 ## Zero dependencies
 
-`mcp-probe` uses only Python stdlib (Python 3.10+). No `mcp` SDK, no `httpx`,
+`mcp-conform` uses only Python stdlib (Python 3.10+). No `mcp` SDK, no `httpx`,
 no `pydantic` — nothing to install, no version conflicts.
 
 ---
